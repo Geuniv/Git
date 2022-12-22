@@ -1,4 +1,4 @@
-from flask import Blueprint , render_template , request , url_for , flash , session
+from flask import Blueprint , render_template , request , url_for , flash , session , g
 from AI.forms import UserCreateForm , UserLoginForm
 from .. import db
 from AI.models import User
@@ -44,3 +44,18 @@ def signin():
             return redirect(url_for('main.index'))
         flash(error)
     return render_template('auth/sign.html', form=form)
+
+# 로그아웃 ( 가장 먼저 유저정보를 받아 모든 views 파일중에 가장먼저 실행되는 라우팅 함수 )
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+    if user_id is None:
+        g.user = None
+    else:
+        g.user = User.query.get(user_id)
+
+# 로그아웃 실제 처리
+@bp.route('/logout/')
+def logout():
+    session.clear()
+    return redirect(url_for('main.index'))
