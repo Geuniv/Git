@@ -14,11 +14,13 @@ def create_app():
     # ORM ( 데이터베이스를 연결하기위해 데이터베이스 초기화 )
     db.init_app(app)
     migrate.init_app(app, db)
+    from . import models
 
-    from.views import main_views,auth_views,predict_views
+    from.views import main_views,auth_views,predict_views,question_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(predict_views.bp)
+    app.register_blueprint(question_views.bp)
 
 
     return app

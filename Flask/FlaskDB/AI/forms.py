@@ -17,3 +17,7 @@ class UserCreateForm(FlaskForm):
 class UserLoginForm(FlaskForm):
     username = StringField('사용자이름' , validators=[DataRequired(), Length(min=3 , max=25)])
     password = PasswordField('비밀번호' , validators=[DataRequired()])
+
+class QuestionForm(FlaskForm):
+    subject = StringField('제목', validators=[DataRequired()])        # 한줄만 넣을 수 있음
+    content = TextAreaField('내용', validators=[DataRequired()])     # 여러줄을 넣을 수 있음

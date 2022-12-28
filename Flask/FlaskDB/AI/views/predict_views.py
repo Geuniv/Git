@@ -25,6 +25,3 @@ def predict():
     else:
         print('GET')
         return render_template("predict.html")
-
-
-
