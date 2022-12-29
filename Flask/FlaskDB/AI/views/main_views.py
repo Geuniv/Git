@@ -1,4 +1,4 @@
-from flask import Blueprint , render_template
+from flask import Blueprint , render_template , request
 
 bp = Blueprint('main' , __name__ , url_prefix='/')
 
@@ -21,4 +21,11 @@ def pricing():
 @bp.route('/faq')
 def faq():
     return render_template('faq.html')
+
+# 챗봇
+@bp.route('/chatbot', methods=['POST'])
+def chatbot():
+    result = request.get_json()
+    print('영화 제목 {}'.format(result['queryResult']['parameters']['movie_name']))
+    return {'fulfillmentText': '영화 내용을 알려줄까 말까 ?'}
 

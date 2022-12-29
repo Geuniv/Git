@@ -4,11 +4,11 @@ BASE_DIR = os.path.dirname(__file__)
 
 db = {
     # 데이터베이스에 접속할 사용자 아이디
-    'user': 'root',
+    'user': 'ai',
     # 사용자 비밀번호
-    'password': '6451',
+    'password': 'q1w2e3!#',
     # 접속할 데이터베이스의 주소 (같은 컴퓨터에 있는 데이터베이스에 접속하기 때문에 localhost)
-    'host': 'localhost',
+    'host': '192.168.6.104',
     #192.168.6.104
     # 관계형 데이터베이스는 주로 3306 포트를 통해 연결됨
     'port': 3306,
