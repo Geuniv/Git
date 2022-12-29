@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>현위치 지도 표시하기</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=in94qpefu4"></script>
+</head>
+<body>
+
+<div id="map" style="width:60%;height:600px;margin:0 auto;"></div>
+
+<script>
+let lat;
+let lng;
+let circle;
+let me;
+let markers;
+let infoWindows;
+let zoom = 13; // 초기 줌 레벨
+let map;
+
+function loadNaverMap(lat, lng){
+  map = new naver.maps.Map('map',{
+    center: new naver.maps.LatLng(lat,lng), //좌표
+    zoom: zoom, //지도의 초기 줌 레벨
+    minZoom: 1, //지도의 최소 줌 레벨
+    draggable: true,
+    pinchZoom: true,
+    scrollWheel: true,
+    disableKineticPan: false, // 관성드래깅
+    scaleControl: false, // 스케일 컨트롤러
+    logoControl: true, // 로고 컨트롤러
+    logoControlOptions: {
+        position: naver.maps.Position.BOTTOM_RIGHT
+    },
+    mapDataControl: false,
+    zoomControl: true, //줌컨트롤러
+    zoomControlOptions: {
+        style: naver.maps.ZoomControlStyle.SMALL,
+        position: naver.maps.Position.TOP_LEFT
+    },
+    mapTypeControl: false,
+  }),
+  marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(lat, lng),
+    map: map
+  });
+}
+
+navigator.geolocation.getCurrentPosition(function(pos){
+	//혹은 하이브리드와 같은 앱의 경우 map함수에 좌표를 넣어 실행시켜주면 됨
+	loadNaverMap(pos.coords.latitude, pos.coords.longitude);
+});
+
+var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+    map: map
+});
+
+</script>
+
+</body>
+</html>
+
+
+
