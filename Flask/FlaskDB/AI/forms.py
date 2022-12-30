@@ -15,9 +15,12 @@ class UserCreateForm(FlaskForm):
     phone = StringField('전화번호', validators=[DataRequired()])
 
 class UserLoginForm(FlaskForm):
-    username = StringField('사용자이름' , validators=[DataRequired(), Length(min=3 , max=25)])
-    password = PasswordField('비밀번호' , validators=[DataRequired()])
+    username = StringField('사용자이름' , validators=[DataRequired('ID를 확인해주세요'), Length(min=3 , max=25)])
+    password = PasswordField('비밀번호' , validators=[DataRequired('비밀번호를 확인해주세요')])
 
 class QuestionForm(FlaskForm):
-    subject = StringField('제목', validators=[DataRequired()])        # 한줄만 넣을 수 있음
-    content = TextAreaField('내용', validators=[DataRequired()])     # 여러줄을 넣을 수 있음
+    subject = StringField('제목', validators=[DataRequired('제목은 필수입력 항목입니다.')])        # 한줄만 넣을 수 있음
+    content = TextAreaField('내용', validators=[DataRequired('내용은 필수입력 항목입니다.')])     # 여러줄을 넣을 수 있음
+
+class AnswerForm(FlaskForm):
+    content = TextAreaField('내용', validators=[DataRequired('내용은 필수입력 항목입니다.')])

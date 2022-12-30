@@ -23,7 +23,7 @@ def faq():
     return render_template('faq.html')
 
 # 챗봇
-@bp.route('/chatbot2', methods=['POST'])
+@bp.route('/chatbot', methods=['POST'])
 def chatbot():
     result = request.get_json()
     print('영화 제목 {}'.format(result['queryResult']['parameters']['movie_name']))
