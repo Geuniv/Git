@@ -7,8 +7,12 @@
     <title>현위치 지도 표시하기</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=in94qpefu4"></script>
 </head>
-<body>
 
+<body>
+<div class="search">
+	<input id="address" type="text" placeholder="검색할 주소">
+	<input id="submit" type="button" value="주소검색">
+</div>
 <div id="map" style="width:60%;height:600px;margin:0 auto;"></div>
 
 <script>
@@ -58,6 +62,7 @@ var marker = new naver.maps.Marker({
     position: new naver.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
     map: map
 });
+
 
 </script>
 
