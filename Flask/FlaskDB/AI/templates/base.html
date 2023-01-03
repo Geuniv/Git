@@ -100,6 +100,34 @@
 {% block content %}
 {% endblock %}
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
+{% block script %}
+
+<!-- 자바스크립트 Start -->
+<script type='text/javascript'>
+
+<!-- 삭제 팝업 스크립트-->
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
+<!-- 추천 스크립트 -->
+const recommend_elements = document.getElementsByClassName("recommend");
+Array.from(recommend_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
+</script>
+{% endblock %}
+<!-- 자바스크립트 End -->
 </body>
 
 <!--            &lt;!&ndash; Footer&ndash;&gt;-->
