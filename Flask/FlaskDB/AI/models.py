@@ -48,3 +48,10 @@ class Answer(db.Model):
     modify_date = db.Column(db.DateTime(), nullable=True)
     voter = db.relationship('User', secondary=answer_voter, backref=db.backref('answer_voter_set'))
 
+class Test(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    cataract = db.Column(db.String(100) , nullable=False)
+    accuracy = db.Column(db.Integer , nullable=False)
+    run_date = db.Column(db.DateTime(), nullable=False)
+

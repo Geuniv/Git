@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <!-- Font Awesome JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"> <!--CDN 링크 --> <title>파이보</title></head>
+
+<!-- 프로필 + 계정설정 작업중 -->
+
+<body>
+<!-- 네비게이션바 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/pybo/">PyBo</a>
+        <a href="/pybo/" class="nav-link text-light">점프 투 게시판</a>
+
+        <!--
+        <a href="https://wikidocs.net/105844" class="nav-link text-warning small">
+            <span class="badge badge-success">news</span> 《Do it! 점프 투 장고》 책 출간!
+        </a>
+        -->
+
+        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-align-justify"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="/common/profile/ranking/"><i class="fas fa-trophy"></i> 랭킹</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/pybo/recent_list/"><i class="fas fa-history"></i> 최근이력</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/common/settings/base/"><i class="fas fa-cog"></i> 계정설정</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link profile-link" href="/common/profile/base/1402/"><i class="fas fa-user-alt"></i> kkoowl</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/common/logout/"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-sm-12 col-md-3 col-lg-2 p-2">
+            <!-- Sidebar  -->
+<nav id="sidebar" class="border-top border-secondary">
+    <div class="list-group">
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/qna/">질문과답변</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/free/">자유게시판</a>
+        <!--
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/tip/">팁과강좌</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/quiz/">파이썬퀴즈</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/news/">새로운소식</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/job/">구인구직</a>
+        -->
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/bug/">버그및건의</a>
+    </div>
+</nav>
+
+
+<ul class="my-3 small" style="padding-left:2em;">
+    <li class="my-1"><a href="https://wikidocs.net/book/1" target="_blank">점프 투 파이썬</a></li>
+    <li class="my-1"><a href="https://wikidocs.net/book/4223" target="_blank">점프 투 장고</a></li>
+    <li class="my-1"><a href="https://wikidocs.net/book/4542" target="_blank">점프 투 플라스크</a></li>
+    <li class="my-1"><a href="https://wikidocs.net/book/31" target="_blank">점프 투 자바</a></li>
+    <li class="my-1"><a href="https://wikidocs.net/book/7601" target="_blank">점프 투 스프링부트</a></li>
+    <li class="my-1"><a href="https://wikidocs.net/book/5445" target="_blank">파이썬 라이브러리</a></li>
+
+</ul>
+
+
+<!--
+<a href="https://wikidocs.net/105844"><img src="https://i.imgur.com/wmSBiqU.jpg" class="d-block my-3"></a>
+<a href="https://wikidocs.net/4321"><img src="https://i.imgur.com/WG61Vwk.jpg" class="mx-auto d-block my-2"></a>
+<a href="https://wikidocs.net/102760"><img src="https://i.imgur.com/dJkcLOc.jpg" class="mx-auto d-block my-2"></a>
+-->
+
+
+        </div>
+        <div class="col-sm-12 col-md-9 col-lg-10 p-2">
+            <div id="content" class="border-top border-secondary">
+                <div class="content_block">
+
+
+<h5 class="border-bottom pb-2 mb-3">계정설정</h5>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="/common/settings/base/">기본정보</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/common/settings/image/">프로필 이미지</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/common/settings/password/">비밀번호 변경</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/common/settings/email/">이메일 수신</a>
+    </li>
+</ul>
+
+<form method="post" class="post-form py-3">
+    <input type="hidden" name="csrfmiddlewaretoken" value="pkLeb1avCvGvCkLC0l3orVwGEss5ZIfpc7CdWsHAnyx2WGX4xXzhbNfEzfQQvy4T">
+    <input type="hidden" name="next" value="">  <!-- 로그인 성공후 이동되는 URL -->
+
+
+
+
+    <div class="form-group mt-2">
+        <label for="username">사용자명 (ID)</label>
+        <input type="text" class="form-control" name="username" id="username" value="kkoowl">
+    </div>
+    <div class="form-group">
+        <label for="email">이메일</label>
+        <input type="text" class="form-control" name="email" id="email" readonly="" value="kkoowl99@gmail.com">
+    </div>
+    <div class="form-group">
+        <label for="intro">한줄소개</label>
+        <input type="text" class="form-control" name="intro" id="intro" aria-describedby="introHelp" value="">
+        <small id="introHelp" class="form-text text-muted">한줄로 자신에 대하여 얘기해 주세요.</small>
+    </div>
+    <div class="form-group">
+        <label for="computer">나의 첫번째 컴퓨터</label>
+        <input type="text" class="form-control" name="computer" id="computer" aria-describedby="computerHelp" value="">
+        <small id="computerHelp" class="form-text text-muted">가장 처음 사용했던 컴퓨터명을 알려주세요. (예: 삼보 TG-286)</small>
+    </div>
+    <div class="form-group">
+        <label for="editor">좋아하는 에디터</label>
+        <input type="text" class="form-control" name="editor" id="editor" aria-describedby="editorHelp" value="">
+        <small id="editorHelp" class="form-text text-muted">프로그래밍 시 즐겨 사용하는 에디터를 알려주세요. (예:파이참, 비주얼스튜디오코드, vi)</small>
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary">저장하기</button>
+</form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container mt-3">
+        <span class="text-muted">©2020 • PYBO.KR</span>
+        <div class="float-right small"><a href="/common/privacy/">개인정보취급방침</a></div>
+    </div>
+</footer>
+
+<!-- jQuery JS -->
+<script src="/static/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="/static/bootstrap.min.js"></script>
+<!-- 자바스크립트 Start -->
+
+
+<!-- 자바스크립트 End -->
+
+</body>
+</html>

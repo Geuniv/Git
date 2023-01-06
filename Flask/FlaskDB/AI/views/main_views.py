@@ -1,10 +1,13 @@
 from flask import Blueprint , render_template , request
+from ..models import User
 
 bp = Blueprint('main' , __name__ , url_prefix='/')
 
+# 프로필 작업 해야함
 @bp.route('/')
 def index():
-    return render_template('index.html')
+    users = User.query.all()
+    return render_template('index.html' , users=users)
 
 @bp.route('/about')
 def about():

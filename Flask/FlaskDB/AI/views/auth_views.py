@@ -1,12 +1,13 @@
 from flask import Blueprint , render_template , request , url_for , flash , session , g
 from AI.forms import UserCreateForm , UserLoginForm
 from .. import db
-from AI.models import User
+from AI.models import User , Question
 from werkzeug.utils import redirect
 from werkzeug.security import generate_password_hash , check_password_hash
 from datetime import datetime
 import functools # login_required 데코레이터
 
+# @login_required 데코레이터
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(*args, **kwargs):
@@ -58,6 +59,17 @@ def signin():
                 return redirect(url_for('main.index'))
         flash(error)
     return render_template('auth/sign.html', form=form)
+
+@bp.route('/profile/<int:userid>')
+def profile(userid):
+    # 사용자 정보
+    user = User.query.filter_by(id = userid).first()
+
+    # 컨텐츠 리스트
+    posts = Question.query.filter(Question.user_id == User.id).order_by(Question.id.desc()).all();
+    # bp.logger.debug(len(posts))
+
+    return render_template('auth/profile_modify.html' , user=user , Question=Question , userid=userid)
 
 # 로그아웃 ( 가장 먼저 유저정보를 받아 모든 views 파일중에 가장먼저 실행되는 라우팅 함수 )
 @bp.before_app_request

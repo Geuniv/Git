@@ -7,6 +7,7 @@
 <script src="/static/js/scripts.js"></script>
 
 <style xmlns="http://www.w3.org/1999/html">
+
     * {
 
   margin: 0;
@@ -150,12 +151,30 @@
 
     #warning{ color: #FF0000; }
 
+    #title{ color: #FFFFFF; }
+
+    #title2{ color: #FFFFFF; }
+
 
 
 </style>
 
 <title>&lt;input type="file"&gt; - 예제 - code sample</title>
 
+
+    <!-- Header-->
+    <header class="py-5 mb-4 bg-dark">
+        <div class="container px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xxl-8">
+                    <div class="text-center my-5">
+                        <h1 class="fw-bolder my-3 mb-3" id="title">AI 기반 백내장 테스트</h1>
+                        <h3 class="fw-bolder my-3 mb-3" id="title2">스마트폰 촬영을 통해 백내장 유무를 검사하세요</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
 
 <div class="d-flex flex-column">
@@ -168,10 +187,10 @@
     <div class="w3layouts">
 
         <div class="centered">
-            <img src="{{ url_for('static', filename='KakaoTalk_20221221_104740512.jpg') }}" width='580' height='580' >
+            <img src="{{ url_for('static', filename='assets/img/KakaoTalk_20221221_104740512.jpg') }}" width='580' height='580' >
         </div>
 
-            <form id="upload" action="{{ url_for('predict.predict') }}" method="POST" enctype="multipart/form-data">
+            <form id="upload" action="{{ url_for('test.Cataract') }}" method="POST" enctype="multipart/form-data">
               <div>
                 <label for="filename" class="file-label">이미지 선택</label>
                 <input id="filename" type="file" value="Upload" name="image" class="file-upload" />
@@ -216,7 +235,13 @@
 <!-- Core theme JS-->
 <script src="/static/js/scripts.js"></script>
 
-
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}")
+        </script>
+    {% endif %}
+{% endwith %}
 
 <script>
 var input = document.querySelector('input');
