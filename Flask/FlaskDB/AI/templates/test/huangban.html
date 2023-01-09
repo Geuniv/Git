@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/static/js/scripts.js"></script>
+
+<style xmlns="http://www.w3.org/1999/html">
+
+    * {
+
+  margin: 0;
+  padding: 0;
+}
+
+
+/* input file type */
+.input-file {
+  display: inline-block;
+}
+
+.input-file [type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0 none;
+}
+.input-file .file-label {
+  display: inline-block;
+  min-width: 53px;
+  height: 27px;
+  line-height: 24px;
+  padding: 0 10px;
+  border-radius: 2px;
+  font-size: 13px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+}
+.input-file .file-name {
+  width: 300px;
+  background: #f5f5f5;
+  height: 27px;
+  line-height: 26px;
+  text-indent: 5px;
+  border: 1px solid #bbb;
+}
+
+/* 접근성 탭 포커스 스타일 */
+.file-focus {
+  outline: 1px dotted #d2310e;
+}
+
+.centered { display: table; margin-left: auto; margin-right: auto; }
+</style>
+
+<style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    svg:not(:root) {
+      display: block;
+    }
+
+    .playable-code {
+      background-color: #f4f7f8;
+      border: none;
+      border-left: 6px solid #558abb;
+      border-width: medium medium medium 6px;
+      color: #4d4e53;
+      height: 100px;
+      width: 90%;
+      padding: 10px 10px 0;
+    }
+
+    .playable-canvas {
+      border: 1px solid #4d4e53;
+      border-radius: 2px;
+    }
+
+    .playable-buttons {
+      text-align: right;
+      width: 90%;
+      padding: 5px 10px 5px 26px;
+    }
+</style>
+
+<style>
+        html {
+    font-family: sans-serif;
+    }
+
+    form {
+    width: 580px;
+    background: #ccc;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid black;
+    }
+
+    form ol {
+    padding-left: 0;
+    }
+
+    form li, div > p {
+    background: #eee;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    list-style-type: none;
+    border: 1px solid black;
+    }
+
+    form img {
+    height: 64px;
+    order: 1;
+    }
+
+    form p {
+    line-height: 32px;
+    padding-left: 10px;
+    }
+
+    form label, form button {
+    background-color: #000000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px ridge black;
+    font-size: 0.8rem;
+    color: white;
+    height: auto;
+    }
+
+    form label:hover, form button:hover {
+    background-color: #000000;
+    color: white;
+    cursor: pointer;
+    }
+
+    form label:active, form button:active {
+    background-color: #616264;
+    color: white;
+    }
+
+    #warning{ color: #FF0000; }
+
+    #title{ color: #FFFFFF; }
+
+    #title2{ color: #FFFFFF; }
+
+
+
+</style>
+
+<title>&lt;input type="file"&gt; - 예제 - code sample</title>
+
+
+    <!-- Header-->
+    <header class="py-5 mb-4 bg-dark">
+        <div class="container px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xxl-8">
+                    <div class="text-center my-5">
+                        <h1 class="fw-bolder my-3 mb-3" id="title">AI 기반 백내장 테스트</h1>
+                        <h3 class="fw-bolder my-3 mb-3" id="title2">스마트폰 촬영을 통해 백내장 유무를 검사하세요</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+<div class="d-flex flex-column">
+    <h2 class="centered mb-4">파일 업로드 후 예측결과 버튼을 클릭해주세요</h2>
+    <h5 class="centered">1. 안구가 정확히 보이도록 사진을 찍어서 업로드 해주세요</h5>
+    <h5 class="centered mb-4">2. 업로드 후 예측결과 버튼을 눌려주세요</h5>
+    <h2 class="warning centered" id="warning">주의 !!!!!</h2>
+    <h5 class="centered">본 온라인 백내장검사는 전문가에 의한 검사가 아니며, 질병의 상태를 진단하거나 예방하는 목적으로 고안되지 않았습니다.</h5>
+    <h5 class="centered">본 온라인 백내장검사는 대략적인 안구의 상태만을 파악할 수 있으며 보다 정확한 검사는 의사에게 검사를 받으시는 것이 좋습니다.</h5>
+    <div class="w3layouts">
+
+    <div class="my_div my_bg text-center">
+        <!-- 카메라 버튼은 웹캠이 출력 -->
+        <button class="btn_start btn-dark mb-4" onclick="location.href='noknaezang_camera'">Camera</button>
+
+    </div>
+
+    <!-- Footer-->
+        <footer class="bg-dark py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                    <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2022</div></div>
+                    <div class="col-auto">
+                        <a class="link-light small" href="#!">Privacy</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Terms</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="static/js/scripts.js"></script>
+
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/static/js/scripts.js"></script>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}")
+        </script>
+    {% endif %}
+{% endwith %}
+
+<script>
+var input = document.querySelector('input');
+var preview = document.querySelector('.preview');
+
+input.style.opacity = 0;
+
+input.addEventListener('change', updateImageDisplay);
+
+function updateImageDisplay() {
+  while(preview.firstChild) {
+    preview.removeChild(preview.firstChild);
+  }
+
+  const curFiles = input.files;
+  if(curFiles.length === 0) {
+    const para = document.createElement('p');
+    para.textContent = 'No files currently selected for upload';
+    preview.appendChild(para);
+  } else {
+    const list = document.createElement('ol');
+    preview.appendChild(list);
+
+    for(const file of curFiles) {
+      const listItem = document.createElement('li');
+      const para = document.createElement('p');
+      if(validFileType(file)) {
+        para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+        const image = document.createElement('img');
+        image.src = URL.createObjectURL(file);
+
+        listItem.appendChild(image);
+        listItem.appendChild(para);
+      } else {
+        para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+        listItem.appendChild(para);
+      }
+
+      list.appendChild(listItem);
+    }
+  }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+const fileTypes = [
+  "image/apng",
+  "image/bmp",
+  "image/gif",
+  "image/jpeg",
+  "image/pjpeg",
+  "image/png",
+  "image/svg+xml",
+  "image/tiff",
+  "image/webp",
+  "image/x-icon"
+];
+
+function validFileType(file) {
+  return fileTypes.includes(file.type);
+}
+
+function returnFileSize(number) {
+  if(number < 1024) {
+    return number + 'bytes';
+  } else if(number >= 1024 && number < 1048576) {
+    return (number/1024).toFixed(1) + 'KB';
+  } else if(number >= 1048576) {
+    return (number/1048576).toFixed(1) + 'MB';
+  }
+}
+
+</script>
+
+{% endblock %}
