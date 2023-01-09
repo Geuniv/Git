@@ -24,7 +24,7 @@ def create():
 @bp.route('/list/')
 def _list():
     # ZINZA 2 문법들
-    page = request.args.get('page', type=int, default=1) # 페이지
+    page = request.args.get('page', type=int, default=1) # 페이징 작업
     # 검색 기능 추가
     kw = request.args.get('kw', type=str, default='')
     question_list = Question.query.order_by(Question.create_date.desc())
