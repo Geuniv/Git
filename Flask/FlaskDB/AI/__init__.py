@@ -24,6 +24,7 @@ def create_app():
     app.register_blueprint(test_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
+
     
     # 필터
     from .filter import format_datetime

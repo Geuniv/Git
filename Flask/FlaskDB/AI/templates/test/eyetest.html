@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Camera</title>
+
+          <style>
+        html, body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #header{
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            z-index: 999;
+            color: white;
+            text-align: center;
+            transform: translate(-50%, -50%);
+        }
+
+        #header > p {
+            font-size: 0.9em;
+        }
+
+        #camera, #camera--view, #camera--sensor, #camera--output{
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        #camera--view, #camera--sensor, #camera--output{
+            transform: scaleX(-1);
+            filter: FlipH;
+        }
+
+        #camera--trigger{
+            width: 180px;
+            color: white;
+            background-color: black;
+            font-size: 16px;
+            border-radius: 30px;
+            border: none;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 5px 10px 0 rgba(0,0,0,0, 0.2);
+            position: fixed;
+            bottom: 30px;
+            left: calc(50% - 90px);
+        }
+
+        .taken {
+            height: 140px!important;
+            width: 220px!important;
+            border: solid 2px rgb(121, 200, 253);
+        }
+    </style>
+
+  <body>
+    <nav class="navbar bg-light">
+        <div class="container">
+        <a class="navbar-brand" href="#"   style="text-align:center;">
+          <img src="static/image/monitoring.png" alt="Cataract Prediction System" width="30" height="24">
+            Cataract Prediction System
+        </a>
+        </div>
+    </nav>
+    </head>
+  <body>
+    <div>
+    <h1 style="text-align:center;">화면에 얼굴이 나오면 손을 깜빡해주세요~
+     <img src="static/손동작 깜빡.gif" alt="깜빡~~~" width="100" height="100"  >
+    </h1>
+
+    </div>
+    <div class="screenshot" style="padding: 10px; text-align:center;">
+      <img id="video_capture" style="justify-content: center; display: center;  border: 6px solid;"
+           src="{{ url_for('test2.eyetest_video') }}" width="50%"/>
+    </div>
+
+    </div>
+    <div style="margin-top:10px; text-align:center;">
+        <button type="button" class="btn btn-outline-primary"onclick="location.href='Camera/predict'">백내장 진단하기</button>
+        <button type="button" class="btn btn-outline-secondary">Secondary</button>
+        <button type="button" class="btn btn-outline-success">Success</button>
+        <button type="button" class="btn btn-outline-danger">Danger</button>
+        <button type="button" class="btn btn-outline-warning">Warning</button>
+        <button type="button" class="btn btn-outline-info">Info</button>
+        <button type="button" class="btn btn-outline-light">Light</button>
+        <button type="button" class="btn btn-outline-dark">Dark</button>
+    </div>
+    <main id="camera">
+    <!--캡처영역-->
+
+        <!-- 기기의 카메라에 접근하여 영상을 페이지에 재생한다. -->
+        <video id="camera--view" autoplay playsinline></video>
+
+        <img src="//:0" alt="" id="camera--output">
+
+        <button id="camera--trigger" type="button">사진촬영</button>
+    </main>
+
+<!-- 스샷한 이미지를 띄우기위한 div -->
+    <div id="img">
+    </div>
+</body>
+
+<!-- 필요한 js cdn -->
+<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script>
+$(function(){
+    $("#camera--trigger").on("click", function(){
+    // 캡처 라이브러리를 통해 canvas 오브젝트 받고 이미지 파일로 리턴함
+    html2canvas(document.querySelector("#video_capture")).then(canvas => {
+                saveAs(canvas.toDataURL('image/jpg'),"lime.jpg"); //다운로드 되는 이미지 파일 이름 지정
+                });
+    });
+    function saveAs(uri, filename) {
+        // 캡처된 파일을 이미지 파일로 내보냄
+        var link = document.createElement('a');
+        if (typeof link.download === 'string') {
+            link.href = uri;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            window.open(uri);
+        }
+    }
+});
+</script>
+
+</html>
