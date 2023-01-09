@@ -1,0 +1,15 @@
+,방향,시력,경로
+0,left,0.1,../static/image/eyetest\0.1\left.jpg
+1,right,0.15,../static/image/eyetest\0.15\right.jpg
+2,right,0.2,../static/image/eyetest\0.2\right.jpg
+3,up,0.3,../static/image/eyetest\0.3\up.jpg
+4,down,0.4,../static/image/eyetest\0.4\down.jpg
+5,up,0.5,../static/image/eyetest\0.5\up.jpg
+6,left,0.6,../static/image/eyetest\0.6\left.jpg
+7,down,0.7,../static/image/eyetest\0.7\down.jpg
+8,left,0.8,../static/image/eyetest\0.8\left.jpg
+9,down,0.9,../static/image/eyetest\0.9\down.jpg
+10,up,1.0,../static/image/eyetest\1.0\up.jpg
+11,down,1.2,../static/image/eyetest\1.2\down.jpg
+12,down,1.5,../static/image/eyetest\1.5\down.jpg
+13,left,2.0,../static/image/eyetest\2.0\left.jpg
