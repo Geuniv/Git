@@ -27,7 +27,7 @@ nowDatetime = now.strftime('%Y-%m-%d %H:%M:%S')
 
 font = ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 35)
 small_font = ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 10)
-logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
+logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
 
 cap = cv2.VideoCapture(0)
 cap.set(3, 1280)
@@ -45,7 +45,7 @@ ListBirds = os.listdir(folderBirds)
 catch = []
 for object in ListBirds:
     catch.append(cv2.resize(cv2.imread(f'{folderBirds}/{object}', cv2.IMREAD_UNCHANGED), (80, 80)))
-background = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/background.jpg'), (1000, 630))
+background = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/background.jpg'), (1000, 630))
 
 currentObject = catch[0]
 pos = [300, 128]

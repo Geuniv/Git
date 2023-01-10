@@ -18,12 +18,15 @@ def create_app():
 
     # 블루프린트
 
-    from.views import main_views , auth_views , test_views , question_views , answer_views
+    from.views import main_views , auth_views , question_views , answer_views , test_views , eyetest_views, game_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(auth_views.bp)
-    app.register_blueprint(test_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
+    app.register_blueprint(eyetest_views.bp)
+    app.register_blueprint(test_views.bp)
+
+    app.register_blueprint(game_views.bp)
 
     
     # 필터
