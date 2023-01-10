@@ -8,6 +8,7 @@ from PIL import ImageFont, ImageDraw, Image
 import pandas as pd
 from ..AI_model import cataract_predict as cp
 import datetime
+import time
 
 bp = Blueprint('cataract' , __name__ , url_prefix='/test')
 
@@ -134,6 +135,7 @@ def gen(cap):
                                 print('-' * 50)
                                 df = pd.DataFrame(List)
                                 df.to_csv(f'C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/csv/cataract.csv')
+                                timeStart = time.time()
                                 testEnd = True
 
             else:
@@ -143,9 +145,10 @@ def gen(cap):
                 draw.text(xy=(320, 220), text=f"백내장 테스트 결과 ", font=ImageFont.truetype(font, 70),fill=(0, 0, 0))
                 draw.text(xy=(400, 360), text=f" 왼 쪽 :          {score_str} {class_name}", font=ImageFont.truetype(font,40), fill=(0, 0, 0))
                 draw.text(xy=(400, 480), text=f"오른쪽 :         {score_str} {class_name}", font=ImageFont.truetype(font,40), fill=(0, 0, 0))
-                draw.text(xy=(370, 580), text=" R =  재진단 ", font=ImageFont.truetype(font,40), fill=(0, 0, 0))
-                draw.text(xy=(690, 580), text=" Q =  종 료 ", font=ImageFont.truetype(font,40), fill=(50, 50, 255))
+                draw.text(xy=(410, 590), text=f'{int(11 - (time.time() - timeStart))}초후 테스트 종료합니다.',font=ImageFont.truetype(font,40), fill=(0, 0, 0))
                 image = np.array(image)
+                if int(11 - (time.time() - timeStart)) == 0:
+                    break
 
                 right_img = cv2.resize(cv2.imread(right_name, cv2.IMREAD_UNCHANGED), (80, 80))
                 left_img = cv2.resize(cv2.imread(left_name, cv2.IMREAD_UNCHANGED), (80, 80))
