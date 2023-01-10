@@ -75,21 +75,21 @@
 
                {% if g.user %}
                <a class="nav-link dropdown-toggle text-white" id="navbar" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ g.user.username }}
-               <img class="img-fluid rounded mb-sm" src="static/assets/img/login.png" alt="..." /></a>
+               <img class="img-fluid rounded mb-sm" src="/static/assets/img/login.png" alt="..." /></a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                         <a class="dropdown-item profile-link" href="#">
-                            <img class="img-fluid rounded mb-sm" src="static/assets/img/user.png" alt="..." />
+                            <img class="img-fluid rounded mb-sm" src="/static/assets/img/user.png" alt="..." />
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 내 정보
                             </a>
                         <a class="dropdown-item profile-link" href="#">
-                            <img class="img-fluid rounded mb-sm" src="static/assets/img/profile.png" alt="..." />
+                            <img class="img-fluid rounded mb-sm" src="/static/assets/img/profile.png" alt="..." />
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                 계정설정
                             </a>
 
-                        <a class="dropdown-item" href="{{ url_for('auth.logout') }}"><img class="img-fluid rounded mb-sm" src="static/assets/img/logout.png" alt="..." />로그아웃</a>
+                        <a class="dropdown-item" href="{{ url_for('auth.logout') }}"><img class="img-fluid rounded mb-sm" src="/static/assets/img/logout.png" alt="..." />로그아웃</a>
                     </li>
                 </ul>
                 {% else %}
