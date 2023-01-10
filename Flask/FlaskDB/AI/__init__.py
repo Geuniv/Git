@@ -18,13 +18,20 @@ def create_app():
 
     # 블루프린트
 
-    from.views import main_views , auth_views , test_views , question_views , answer_views
+    from.views import main_views , auth_views , test_views , question_views , answer_views, eyetest_views,noknaezang_views,huangban_views, nansi_views, seakak_views, game_views, cataract_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(test_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
-    
+    app.register_blueprint(eyetest_views.bp)
+    app.register_blueprint(noknaezang_views.bp)
+    app.register_blueprint(huangban_views.bp)
+    app.register_blueprint(nansi_views.bp)
+    app.register_blueprint(seakak_views.bp)
+    app.register_blueprint(game_views.bp)
+    app.register_blueprint(cataract_views.bp)
+
     # 필터
     from .filter import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
