@@ -12,7 +12,7 @@ import datetime
 import time
 from glob import glob
 
-bp = Blueprint('test' , __name__ , url_prefix='/test')
+bp = Blueprint('eyetest' , __name__ , url_prefix='/test')
 
 # 백내장 테스트
 @bp.route('/eyetest')
@@ -36,7 +36,7 @@ userID = '000000001'
 
 dataList = []
 list = []
-folders = glob('C:/Users/user/Desktop/pythonProject/pythonProject/Flask/FlaskDB/AI/static/image/*')
+folders = glob('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/image/eyetest/*')
 for folder in folders:
     imgs = glob(folder + '/*jpg')
     list.append(random.choice(imgs))
@@ -49,7 +49,7 @@ for img in list:
         '경로': img
     })
 df = pd.DataFrame(dataList)
-df.to_csv('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/csv/eyetest.csv')
+df.to_csv('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/csv/eyetest.csv')
 print(df)
 testEnd = False
 another = False
@@ -69,18 +69,18 @@ nowDatetime = now.strftime('%Y-%m-%d %H:%M:%S')
 detector = FaceMeshDetector(maxFaces=1)
 mp_hands = mp.solutions.hands
 
-btn_right = cv2.resize(cv2.imread("C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/No.png", cv2.IMREAD_UNCHANGED), (80, 80))
+btn_right = cv2.resize(cv2.imread('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/button/No.png', cv2.IMREAD_UNCHANGED), (80, 80))
 btn_left = cv2.flip(btn_right, 1)
 btn_up = cv2.rotate(btn_right, cv2.ROTATE_90_CLOCKWISE)
 btn_down = cv2.flip(btn_up, -1)
-logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
-test = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/test.png', cv2.IMREAD_UNCHANGED), (300, 210))
-font = ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40)
-background = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/background.jpg'), (1000, 630))
+logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
+test = cv2.resize(cv2.imread('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/button/test.png', cv2.IMREAD_UNCHANGED), (300, 210))
+font = ImageFont.truetype('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40)
+background = cv2.resize(cv2.imread('C:/pythonProject3/static/button/background.jpg'), (1000, 630))
 
 def gen(cap):
     def eyeTes_def(idx):
-        df = pd.read_csv('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/csv/eyetest.csv')
+        df = pd.read_csv('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/csv/eyetest.csv')
         eyeImg = cv2.imread(df['경로'][idx])
         eyeName = df['방향'][idx]
         eyeText = df['시력'][idx]
@@ -284,18 +284,18 @@ def gen(cap):
                         text_def((370, 250), '테스트 계속하기', ImageFont.truetype('../static/fonts/H2GSRB.TTF', 70),
                                  (0, 0, 0))
                         text_def((350, 380), f'{int(6 - (time.time() - timeStart))}초후 {eye} 테스트 시작합니다.',
-                                 ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40), (0, 0, 0))
+                                 ImageFont.truetype('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40), (0, 0, 0))
                         List = []
                         if int(6 - (time.time() - timeStart)) == 0:
                             another = False
 
             else:
                 image_def(background)
-                text_def((320, 220), "시력테스트 검사결과 ", ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 70), (0, 0, 0))
+                text_def((320, 220), "시력테스트 검사결과 ", ImageFont.truetype('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 70), (0, 0, 0))
                 text_def((350, 360), f"{finalList[0]['눈']}의 시력은 {finalList[0]['시력']} 입니다 ", font, (0, 0, 0))
                 text_def((350, 450), f"{finalList[1]['눈']}의 시력은 {finalList[1]['시력']} 입니다 ", font, (0, 0, 0))
                 text_def((410, 590), f'{int(11 - (time.time() - timeStart))}초후 테스트 종료합니다.',
-                         ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40), (0, 0, 0))
+                         ImageFont.truetype('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40), (0, 0, 0))
                 if int(11 - (time.time() - timeStart)) == 0:
                     break
 
@@ -307,7 +307,7 @@ def gen(cap):
                 break
 
     df = pd.DataFrame(finalList)
-    df.to_csv('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/csv/eyetest.csv')
+    df.to_csv('C:/Users/user/Desktop/project/Flask/FlaskDB/AI/static/csv/eyetest.csv')
     print(finalList)
     cv2.destroyAllWindows()
     cap.release()
