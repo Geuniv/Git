@@ -31,7 +31,7 @@ def image_test(img):
     num_features = model.fc.in_features
     model.fc = nn.Linear(num_features, 3)
 
-    model.load_state_dict(torch.load("C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/AI_model\model_dict.pth", map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load("C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/AI_model/reset9973.pth", map_location=torch.device('cpu')))
     model.eval()
 
     model = model.to(device)
