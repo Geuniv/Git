@@ -38,22 +38,15 @@ def overlay(image, x, y, w, h, overlay_image):  # 대상 이미지 (3채널), x,
         image[y - h:y + h, x - w:x + w, c] = (overlay_image[:, :, c] * image_alpha) + (
                     image[y - h:y + h, x - w:x + w, c] * (1 - image_alpha))
 
-def img_size(def_img, img_x, img_y):
-    global image
+def img_size(image,def_img, img_x, img_y):
     h, w, _ = def_img.shape
     image[int(img_y - h / 2):int(img_y + h / 2), int(img_x - w / 2):int(img_x + w / 2)] = def_img
-
-def text_def(xy,text_name,fontstyle,text_color):
-    global image
-    image = Image.fromarray(image)
-    draw = ImageDraw.Draw(image)
-    draw.text(xy=xy,  text=text_name, font=fontstyle, fill= text_color)
-    image = np.array(image)
 
 testEnd = False
 List = []
 
 def gen(cap):
+    global testEnd
     with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.7) as face_detection:
         while True:
             if cap.get(cv2.CAP_PROP_POS_FRAMES) == cap.get(cv2.CAP_PROP_FRAME_COUNT):
@@ -68,8 +61,11 @@ def gen(cap):
             results = face_detection.process(image)
             image.flags.writeable = True
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-            text_def((100, 35), f'손을 깜빡 해주세요~', ImageFont.truetype(font, 40), (255, 255, 255))
 
+            image = Image.fromarray(image)
+            draw = ImageDraw.Draw(image)
+            draw.text(xy=(100, 35),text= f'손을 깜빡 해주세요~',font=ImageFont.truetype(font, 40), fill=(255, 255, 255))
+            image = np.array(image)
 
             if testEnd is False:
                 if results.detections:
@@ -103,13 +99,17 @@ def gen(cap):
                             dist2 = abs(int(finger2 - hand))
 
                             overlay(image, *(450, 130), 40, 40, face)
-                            text_def((495, 115), f'정면봐주세요~', ImageFont.truetype(font,40), (0, 225, 225))
+
+                            image = Image.fromarray(image)
+                            draw = ImageDraw.Draw(image)
+                            draw.text(xy=(495, 115), text= f'정면봐주세요~', font=ImageFont.truetype(font,40), fill=(0, 225, 225))
+                            image = np.array(image)
 
                             if dist < dist2:
                                 print("왼쪽 눈")
                                 cv2.imwrite(right_name, right)
                                 class_name, score = cp.image_test(right_name)
-                                score_str = str(score) + '%'
+                                score_str = str(round(score)) + '%'
                                 List.append({
                                     'ID': userID,
                                     '시간': nowDatetime,
@@ -122,7 +122,7 @@ def gen(cap):
 
                                 cv2.imwrite(left_name, left)
                                 class_name, score = cp.image_test(left_name)
-                                score_str = str(score) + '%'
+                                score_str = str(round(score)) + '%'
                                 List.append({
                                     'ID': userID,
                                     '시간': nowDatetime,
@@ -137,18 +137,20 @@ def gen(cap):
                                 testEnd = True
 
             else:
-                img_size(background, 630, 360)
-
-                text_def((320, 220), f"백내장 테스트 결과 ", ImageFont.truetype(font, 70),(0, 0, 0))
-                text_def((400, 360), f" 왼 쪽 :          {score_str} {class_name}", ImageFont.truetype(font,40), (0, 0, 0))
-                text_def((400, 480), f"오른쪽 :         {score_str} {class_name}", ImageFont.truetype(font,40), (0, 0, 0))
-                text_def((370, 580), " R =  재진단 ", ImageFont.truetype(font,40), (0, 0, 0))
-                text_def((690, 580), " Q =  종 료 ", ImageFont.truetype(font,40), (50, 50, 255))
+                img_size(image, background, 630, 360)
+                image = Image.fromarray(image)
+                draw = ImageDraw.Draw(image)
+                draw.text(xy=(320, 220), text=f"백내장 테스트 결과 ", font=ImageFont.truetype(font, 70),fill=(0, 0, 0))
+                draw.text(xy=(400, 360), text=f" 왼 쪽 :          {score_str} {class_name}", font=ImageFont.truetype(font,40), fill=(0, 0, 0))
+                draw.text(xy=(400, 480), text=f"오른쪽 :         {score_str} {class_name}", font=ImageFont.truetype(font,40), fill=(0, 0, 0))
+                draw.text(xy=(370, 580), text=" R =  재진단 ", font=ImageFont.truetype(font,40), fill=(0, 0, 0))
+                draw.text(xy=(690, 580), text=" Q =  종 료 ", font=ImageFont.truetype(font,40), fill=(50, 50, 255))
+                image = np.array(image)
 
                 right_img = cv2.resize(cv2.imread(right_name, cv2.IMREAD_UNCHANGED), (80, 80))
                 left_img = cv2.resize(cv2.imread(left_name, cv2.IMREAD_UNCHANGED), (80, 80))
-                img_size(right_img, 600, 380)
-                img_size(left_img, 600, 500)
+                img_size(image, right_img, 600, 380)
+                img_size(image, left_img, 600, 500)
 
             overlay(image, *(50, 50), 40, 40, logo)
             cv2.imshow("Cataract", image)
