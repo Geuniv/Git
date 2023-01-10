@@ -299,7 +299,7 @@ def gen(cap):
                 text_def((350, 360), f"{finalList[0]['눈']}의 시력은 {finalList[0]['시력']} 입니다 ", font, (0, 0, 0))
                 text_def((350, 450), f"{finalList[1]['눈']}의 시력은 {finalList[1]['시력']} 입니다 ", font, (0, 0, 0))
                 text_def((410, 590), f'{int(11 - (time.time() - timeStart))}초후 테스트 종료합니다.',
-                         ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40), (0, 0, 0))
+                ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40), (0, 0, 0))
                 if int(11 - (time.time() - timeStart)) == 0:
                     break
 
