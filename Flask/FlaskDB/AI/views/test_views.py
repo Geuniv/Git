@@ -33,11 +33,14 @@ def Cataract():
         print(alert)
         flash(alert)
 
-        # test = Test.query.filter_by(user=g.user, cataract=form.cataract.data, accuracy=form.accuracy.data,
-        #                             create_date=datetime.now())
+        # if request.method == "GET" and form.validate_on_submit():
         #
-        # db.session.add(test)
-        # db.session.commit()
+        #     test = Test.query.filter_by(user=g.user, cataract=form.cataract.data, accuracy=form.accuracy.data,
+        #                                 run_date=datetime.now())
+        #
+        #     db.session.add(test)
+        #     db.session.commit()
+        #     return redirect(url_for('test.Cataract'))
         return render_template("test/Cataract.html", class_name=class_name, score=score , alert=alert , form=form)
     else:
         print('GET')

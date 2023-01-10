@@ -51,6 +51,7 @@ class Answer(db.Model):
 class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    user = db.relationship('User', backref=db.backref('test_set'))
     cataract = db.Column(db.String(100) , nullable=False)
     accuracy = db.Column(db.Integer , nullable=False)
     run_date = db.Column(db.DateTime(), nullable=False)
