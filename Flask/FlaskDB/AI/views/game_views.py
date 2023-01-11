@@ -1,4 +1,4 @@
-from flask import render_template,Response,Blueprint
+from flask import render_template,Response,Blueprint , g
 import cv2
 import cvzone
 from cvzone.FaceMeshModule import FaceMeshDetector
@@ -12,10 +12,10 @@ import time
 import random
 import os
 
-bp = Blueprint('game' , __name__ , url_prefix='/test')
+bp = Blueprint('game' , __name__ , url_prefix='/game')
 
 @bp.route('/game')
-def camera():
+def game():
     return render_template('test/game.html')
 
 totalTime = 30  # 총 게임 시간은 20초로 지정
@@ -25,8 +25,8 @@ eye_dist = 33
 now = datetime.datetime.now()
 nowDatetime = now.strftime('%Y-%m-%d %H:%M:%S')
 
-font = ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 35)
-small_font = ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 10)
+font = ImageFont.truetype('../AI/static/fonts/H2GSRB.TTF', 35)
+small_font = ImageFont.truetype('../AI/static/fonts/H2GSRB.TTF', 10)
 logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
 
 cap = cv2.VideoCapture(0)

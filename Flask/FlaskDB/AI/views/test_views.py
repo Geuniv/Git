@@ -2,6 +2,7 @@ from flask import Blueprint , request , render_template , g , flash , url_for , 
 from .. import db
 from ..models import User , Test
 from AI.forms import CataractForm
+from AI.views.auth_views import login_required
 from datetime import datetime
 from werkzeug.utils import redirect
 import matplotlib.pyplot as plt
@@ -9,10 +10,13 @@ plt.rc('font', family='NanumGothic') # For Windows
 import warnings
 warnings.filterwarnings('ignore')
 from ..AI_model import cataract_predict as cp
-import functools
-from AI.views.auth_views import login_required
 
 bp = Blueprint('test' , __name__ , url_prefix='/test')
+
+@bp.route('/cataract_main')
+@login_required # @login_required 데코레이터
+def cataract_main():
+    return render_template('test/Cataract_main.html')
 
 # 백내장 테스트
 @bp.route('/cataract', methods=['GET', 'POST'])

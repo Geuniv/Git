@@ -1,4 +1,5 @@
 from flask import Flask,render_template,Response,request,Blueprint
+from AI.views.auth_views import login_required
 import cv2
 import cvzone
 from cvzone.FaceMeshModule import FaceMeshDetector
@@ -10,11 +11,12 @@ from ..AI_model import eyeTest as et
 import datetime
 import time
 
-bp = Blueprint('noknaezang' , __name__ , url_prefix='/test')
+bp = Blueprint('glaucoma' , __name__ , url_prefix='/test')
 
-@bp.route('/noknaezang')
-def camera():
-    return render_template('test/noknaezang.html')
+@bp.route('/glaucoma')
+@login_required # @login_required 데코레이터
+def glaucoma():
+    return render_template('test/glaucoma.html')
 
 d_start = 30  # 시작거리
 d_end = 50  # 끝나는 거리
@@ -37,13 +39,14 @@ btn_size = 40
 List = []
 eye = '오른쪽눈'
 
-logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
-test = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/test.png', cv2.IMREAD_UNCHANGED), (300, 210))
-font = ImageFont.truetype('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40)
-background = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/background.jpg'), (1000, 630))
-true = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/Yes.png', cv2.IMREAD_UNCHANGED), (80, 80))
-false = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/No.png', cv2.IMREAD_UNCHANGED), (80, 80))
-disease = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/noknaezang\glaucoma.jpg'), (740, 440))
+logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
+test = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/test.png', cv2.IMREAD_UNCHANGED), (300, 210))
+font = ImageFont.truetype('C:Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF', 40)
+orgin_font = 'C:Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF'
+background = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/background.jpg'), (1000, 630))
+true = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/Yes.png', cv2.IMREAD_UNCHANGED), (80, 80))
+false = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/No.png', cv2.IMREAD_UNCHANGED), (80, 80))
+disease = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/glaucoma/glaucoma.jpg'), (740, 440))
 cap = cv2.VideoCapture(0)
 
 def text_def(xy, text_name, fontstyle, text_color):
@@ -77,7 +80,7 @@ def gen(cap):
             image_def(disease)
 
             if testEnd is False:
-                text_def((100, 35), f'얼구정면인 상태에서 그림같은 자세를 취하고 오른쪽/왼쪽 \n손가락이 보이면 V, 안보이면 X에 손가락을 대주세요.', font,
+                text_def((100, 35), f'한쪽눈을 가리고 얼굴이 정면을 바라본 상태에서 그림같은 자세를 취하고 해당방향의 \n손가락이 보이면 V, 안보이면 X에 손가락을 대주세요.', font,
                          (255, 255, 255))
                 if another is False:
                     if results.multi_hand_landmarks:
@@ -157,7 +160,7 @@ def gen(cap):
 
             et.overlay(image, *(50, 50), 40, 40, logo)
 
-            cv2.imshow("Noknaezang", image)
+            cv2.imshow("glaucoma", image)
             key = cv2.waitKey(1)
             if key == ord('q'):
                 break
@@ -168,8 +171,8 @@ def gen(cap):
     cap.release()
 
 
-@bp.route('/noknaezang_camera')
+@bp.route('/glaucoma_camera')
 def video_feed():
     global cap
     if Response(gen(cap),mimetype='multipart/x-mixed-replace; boundary=frame'):
-        return render_template("test/noknaezang.html")    # 윈도우창이 출력시 카메라 페이지로 다시 돌아간다
+        return render_template("test/glaucoma.html")    # 윈도우창이 출력시 카메라 페이지로 다시 돌아간다

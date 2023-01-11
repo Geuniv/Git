@@ -45,15 +45,15 @@
                    <li class="nav-item dropdown">
                        <a class="nav-link dropdown-toggle text-white" id="navbarDropdownTest" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">검사</a>
                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownTest">
-                           <li><a class="dropdown-item" href="{{ url_for('test.Cataract') }}">백내장 검사</a></li>
-                           <li><a class="dropdown-item" href="{{ url_for('test.Cataract') }}">녹내장 검사</a></li>
-                           <li><a class="dropdown-item" href="{{ url_for('test.Cataract') }}">시력 검사</a></li>
-                           <li><a class="dropdown-item" href="{{ url_for('test.Cataract') }}">난시 검사</a></li>
-                           <li><a class="dropdown-item" href="{{ url_for('test.Cataract') }}">황반변성 검사</a></li>
-                           <li><a class="dropdown-item" href="{{ url_for('test.Cataract') }}">색각 검사</a></li>
+                           <li><a class="dropdown-item" href="{{ url_for('test.cataract_main') }}">백내장 검사</a></li>
+                           <li><a class="dropdown-item" href="{{ url_for('glaucoma.glaucoma') }}">녹내장 검사</a></li>
+                           <li><a class="dropdown-item" href="{{ url_for('eyetest.eyetest') }}">시력 검사</a></li>
+                           <li><a class="dropdown-item" href="{{ url_for('astigmatism.astigmatism') }}">난시 검사</a></li>
+                           <li><a class="dropdown-item" href="{{ url_for('macular.macular') }}">황반변성 검사</a></li>
+                           <li><a class="dropdown-item" href="{{ url_for('color.color') }}">색각 검사</a></li>
                        </ul>
                    </li>
-                   <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('main.pricing') }}">게임</a></li>
+                   <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('game.game') }}">게임</a></li>
                    <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('main.faq') }}">의료/편의시설</a></li>
                    <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('main.faq') }}">고객센터</a></li>
                    <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('question._list') }}">질문 게시판</a></li>
@@ -184,5 +184,6 @@ Array.from(recommend_elements).forEach(function(element) {
     }
 </style>
 <!--챗봇 끝-->
+
 
 </html>

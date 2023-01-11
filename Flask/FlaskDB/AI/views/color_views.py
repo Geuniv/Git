@@ -1,4 +1,5 @@
 from flask import Flask,render_template,Response,request,Blueprint
+from AI.views.auth_views import login_required
 import cv2
 import cvzone
 from cvzone.FaceMeshModule import FaceMeshDetector
@@ -10,11 +11,12 @@ from ..AI_model import eyeTest as et
 import datetime
 import time
 
-bp = Blueprint('seakak' , __name__ , url_prefix='/test')
+bp = Blueprint('color' , __name__ , url_prefix='/test')
 
-@bp.route('/seakak')
-def camera():
-    return render_template('test/seakak.html')
+@bp.route('/color')
+@login_required # @login_required 데코레이터
+def color():
+    return render_template('test/color.html')
 
 userID = '000000001'
 d_start = 50    # 시작거리
@@ -39,19 +41,19 @@ num = []
 eye = '오른쪽눈'
 timeStart = time.time()
 
-logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
-test = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/test.png', cv2.IMREAD_UNCHANGED), (300, 210))
-font = 'C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF'
-background = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/background.jpg'), (1000, 630))
-true = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/Yes.png', cv2.IMREAD_UNCHANGED), (80, 80))
-false = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/button/No.png', cv2.IMREAD_UNCHANGED), (80, 80))
-disease = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/seakak/colortest.jpg'),(1000,370))
+logo = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/eye.png', cv2.IMREAD_UNCHANGED), (80, 80))
+test = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/test.png', cv2.IMREAD_UNCHANGED), (300, 210))
+font = 'C:Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/fonts/H2GSRB.TTF'
+background = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/background.jpg'), (1000, 630))
+true = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/Yes.png', cv2.IMREAD_UNCHANGED), (80, 80))
+false = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/assets/img/button/No.png', cv2.IMREAD_UNCHANGED), (80, 80))
+disease = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/color/colortest.jpg'),(1000,370))
 
-two = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/seakak/2.png', cv2.IMREAD_UNCHANGED),(80,80))
-twentyone = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/seakak/21.png', cv2.IMREAD_UNCHANGED),(80,80))
-twentysix = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/seakak/26.png', cv2.IMREAD_UNCHANGED),(80,80))
-seventyfour = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/seakak/74.png', cv2.IMREAD_UNCHANGED),(80,80))
-nintyseven = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/seakak/97.png', cv2.IMREAD_UNCHANGED),(80,80))
+two = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/color/2.png', cv2.IMREAD_UNCHANGED),(80,80))
+twentyone = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/color/21.png', cv2.IMREAD_UNCHANGED),(80,80))
+twentysix = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/color/26.png', cv2.IMREAD_UNCHANGED),(80,80))
+seventyfour = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/color/74.png', cv2.IMREAD_UNCHANGED),(80,80))
+nintyseven = cv2.resize(cv2.imread('C:/Users/user/Desktop/pythonProject/pythonProject/Git/Flask/FlaskDB/AI/static/image/color/97.png', cv2.IMREAD_UNCHANGED),(80,80))
 
 def image_def(img_x,img_y,image_name):
     global image
@@ -203,7 +205,7 @@ def gen(cap):
                 if int(11 - (time.time() - timeStart)) == 0:
                     break
 
-            cv2.imshow("Seakak", image)
+            cv2.imshow("color", image)
             key = cv2.waitKey(1)
             if key == ord('q'):
                 break
@@ -212,8 +214,8 @@ def gen(cap):
     cap.release()
     cv2.destroyAllWindows()
 
-@bp.route('/seakak_camera')
+@bp.route('/color_camera')
 def video_feed():
     global cap
     if Response(gen(cap),mimetype='multipart/x-mixed-replace; boundary=frame'):
-        return render_template("test/seakak.html")    # 윈도우창이 출력시 카메라 페이지로 다시 돌아간다
+        return render_template("test/color.html")    # 윈도우창이 출력시 카메라 페이지로 다시 돌아간다
