@@ -1,37 +1,94 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% block content %}
+    <!-- 지도 스크립트 -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=in94qpefu4&submodules=geocoder"></script>
-	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
 </head>
 
+
 <body>
-<div class="search">
-	<input id="address" type="text" placeholder="검색할 주소">
-	<input id="submit" type="button" value="주소검색">
-	<input id="currentPosition" type="button" value="현위치">
+<div class="getuserlocation">
+    <form action=" " method="POST">
+           <style>
+                .select_location input[type="radio"] {
+                    display: none;
+                }
+
+                .select_location input[type="radio"] + span {
+                    display: inline-block;
+                    padding: 10px 10px;
+                    border: 1px solid #dfdfdf;
+                    background-color: #ffffff;
+                    text-align: center;
+                    cursor: pointer;
+                }
+
+                .select_location input[type="radio"]:checked + span {
+                    background-color: #113a6b;
+                    color: #ffffff;
+                }
+            </style>
+        <label class="select_location">
+            <input type="radio" class="radio-value" name="location" value="currnetlocation">
+            <span>현위치</span>
+        </label>
+        <label class="select_location">
+            <input type="radio" class="radio-value" name="location" value="selectedlocation">
+            <span>주소 검색</span>
+        </label>
+
+        <label class="input_address">
+            <input id="address" type="text" class="radio-value-detail" placeholder="검색할 주소" />
+        </label>
+        <label class="input_address">
+            <input id="submit" type="button" value="주소검색" >
+        </label>
+
+
+        <button id="userlatlng" name="latlngbtn" value="" >조회</button>
+    </form>
 </div>
+
 <div id="map" style="width:1000px;height:500px;"></div>
-<div>
-	<table>
-		<thead>
-			<tr>
-				<th>주소</th>
-				<th>위도</th>
-				<th>경도</th>
-			</tr>
-		</thead>
-		<tbody id="mapList"></tbody>
-	</table>
-</div>
+
 </body>
+
+
 <script>
-//지도를 그려주는 함수 실행
-selectMapList();
+//전역변수 설정
+let coordsStr; //위도 경도 정보의 json 형식을 str 형식으로 바꾼 내용
+let lat;
+let lng;
+
+
+
+//현위치 받아오기 성공/실패 여부
+function askForCoords() {
+    navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
+}
+
+//현위치 받아오기 성공시
+function handleSuccess(position) {
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+    coordsObj = { // 객체의 key,  value 값이 동일할 때에는 한번만 써줘도 된다.
+        lat,       // sessionStorage에 객체로 value에 저장하기위해서 객체에 넣어준다.
+        lng
+    };
+    coordsStr = JSON.stringify(coordsObj);
+    alert("현위치로 설정되었습니다. 조회 버튼을 클릭해 주세요.");
+}
+
+//현위치 받아오기 실패시
+function handleError() {
+    console.log('위치 정보를 받아올 수 없습니다. 위치 제한을 풀거나, 주소 검색을 이용해 주시기 바랍니다.');
+}
+
 
 //검색한 주소의 정보를 insertAddress 함수로 넘겨준다.
 function searchAddressToCoordinate(address) {
@@ -39,14 +96,14 @@ function searchAddressToCoordinate(address) {
         query: address
     }, function(status, response) {
         if (status === naver.maps.Service.Status.ERROR) {
-            return alert('Something Wrong!');
+            return alert('주소 서비스가에 장애가 발생했습니다. 잠시 후 이용 부탁드립니다.');
         }
         if (response.v2.meta.totalCount === 0) {
             return alert('올바른 주소를 입력해주세요.');
         }
         var htmlAddresses = [],
             item = response.v2.addresses[0],
-            point = new naver.maps.Point(item.x, item.y);
+            point = new naver.maps.Point(item.y, item.x);
         if (item.roadAddress) {
             htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
         }
@@ -57,77 +114,70 @@ function searchAddressToCoordinate(address) {
             htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
         }
 
-        insertAddress(item.roadAddress, item.x, item.y);
-
+        lat = item.y;
+        lng = item.x;
+        coordsObj = {
+                lat, lng
+        };
+        coordsStr = JSON.stringify(coordsObj);
+        alert("검색하신 주소로 설정되었습니다. 조회 버튼을 클릭해주세요.");
     });
 }
 
-// 주소 검색의 이벤트
-$('#address').on('keydown', function(e) {
+
+//=======================여기서부터 이벤트==============================
+//라디오 버튼 이벤트
+$('.radio-value').on('click', function() {
+    var valueCheck = $('.radio-value:checked').val(); // 체크된 Radio 버튼의 값 확인
+    if ( valueCheck == 'selectedlocation' ) {
+        $('.radio-value-detail').attr('disabled', false); // 주소 검색 입력창 활성화
+        $('.radio-value-detail').focus(); // 주소 검색 입력창에 커서를 이동
+    } else if ( valueCheck == 'currentlocation' ) {
+        $('.radio-value-detail').attr('disabled', True); // 주소 검색 입력창 활성화
+        $('.radio-value-detail').focus(); // 주소 검색 입력창에 커서를 이동
+    } else {
+        $('.radio-value-detail').val(''); // 주소 검색 입력창에 값이 있으면 초기화
+        $('.radio-value-detail').attr('disabled', true); // 주소 검색 입력창 비활성화
+        askForCoords() //현 위치 받아오는 함수 실행
+    };
+});
+
+//'조회' 버튼 속성에 coordsStr 정보 넘기기
+$(document).on('click','#userlatlng',function(e){
+    //라디오 버튼이 '현위치'로 되어 있으면 실행
+    if ($('.radio-value:checked').val() == "currnetlocation") {
+        $('button[name=latlngbtn]').attr('value',coordsStr);
+
+
+    //라디오 버튼이 '주소 검색'으로 되어 있으면 실행
+    } else {
+        $('button[name=latlngbtn]').attr('value',coordsStr);
+
+    }
+});
+
+
+//'주소 검색' 버튼 클릭시 주소기준 위도경도 받아서 coordsStr로 정보 넘기기
+$(document).on('keydown','#address',function(e){
     var keyCode = e.which;
     if (keyCode === 13) { // Enter Key
         searchAddressToCoordinate($('#address').val());
     }
 });
-$('#submit').on('click', function(e) {
+$(document).on('click','#submit',function(e){
     e.preventDefault();
     searchAddressToCoordinate($('#address').val());
 });
 
-// 현위치 검색의 이벤트
-$('#currentPosition').on('click', function(e) {
-    e.preventDefault();
-    navigator.geolocation.getCurrentPosition(function(pos){
-	moveMap(pos.coords.latitude, pos.coords.longitude);
-	});
-});
 
-naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
-
-//검색정보를 테이블로 작성해주고, 지도에 마커를 찍어준다.
-function insertAddress(address, latitude, longitude) {
-	var mapList = "";
-	mapList += "<tr>"
-	mapList += "	<td>" + address + "</td>"
-	mapList += "	<td>" + latitude + "</td>"
-	mapList += "	<td>" + longitude + "</td>"
-	mapList += "</tr>"
-
-	$('#mapList').append(mapList);
-
-	var map = new naver.maps.Map('map', {
-	    center: new naver.maps.LatLng(longitude, latitude),
-	    zoom: 14
-	});
-    var marker = new naver.maps.Marker({
-        map: map,
-        position: new naver.maps.LatLng(longitude, latitude),
-    });
-}
-
-//지도를 그려주는 함수
-function selectMapList() {
-
-	var map = new naver.maps.Map('map', {
-	    center: new naver.maps.LatLng(37.3595704, 127.105399),
-	    zoom: 10
-	});
-}
-
-
-// 지도를 이동하게 해주는 함수
-function moveMap(len, lat) {
-	var mapOptions = {
-		    center: new naver.maps.LatLng(len, lat),
-		    zoom: 15,
-		    mapTypeControl: true
-		};
-    var map = new naver.maps.Map('map', mapOptions);
-    var marker = new naver.maps.Marker({
-        position: new naver.maps.LatLng(len, lat),
-        map: map
-    });
-}
 
 </script>
-</html>
+{% endblock %}
+
+
+
+//$(document).on('click','#customlatlng',function(e){
+//    searchAddressToCoordinate($('#address').val());
+//    $('button[name=addrbtn]').attr('value',customcoordsStr)
+//    alert("검색한 주소 기준으로 검색합니다.: "+$(this).attr("value"));
+//});

@@ -178,16 +178,24 @@
 
 
 <div class="d-flex flex-column">
-    <h2 class="centered mb-4">카메라 버튼을 누른후 게임을 시작해주세요</h2>
-    <h5 class="centered">1. 카메라 버튼을 눌러주세요</h5>
+
+    <h3 class="centered mb-4">눈 깜빡이 게임</h3>
+
+    <div class="centered mb-4">
+        <video class="mb-4" src="{{ url_for('static' , filename='assets/img/testguide/game.mp4') }}" width='750' height='500' controls></video>
+        <h5 class="centered">눈 깜빡이 게임 시연 영상</h5>
+    </div>
+
+    <h3 class="centered mb-4">---------------------------------------------------------</h3>
+
+    <h5 class="centered">1. 게임시작 버튼을 눌러주세요</h5>
     <h5 class="centered">2. 게임이 시작된 후 새가 내려오기 시작하면 눈을 깜빡여 새를 잡아주세요</h5>
     <h5 class="centered mb-4">3. 게임이 끝난 후 스코어를 확인해주세요</h5>
     <div class="w3layouts">
 
     <div class="my_div my_bg text-center">
         <!-- 카메라 버튼은 웹캠이 출력 -->
-        <button class="btn_start btn-dark mb-4" onclick="location.href='game_camera'">Camera</button>
-
+        <button class="btn btn_start me-1 btn-dark mb-4" onclick="location.href='game_camera'">게임 시작</button>
     </div>
 
     <!-- Footer-->

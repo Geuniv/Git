@@ -168,8 +168,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-xxl-8">
                     <div class="text-center my-5">
-                        <h1 class="fw-bolder my-3 mb-3" id="title">AI 기반 백내장 테스트</h1>
-                        <h3 class="fw-bolder my-3 mb-3" id="title2">스마트폰 촬영을 통해 백내장 유무를 검사하세요</h3>
+                        <h1 class="fw-bolder my-3 mb-3" id="title">AI 기반 눈건강 관리</h1>
+                        <h3 class="fw-bolder my-3 mb-3" id="title2">여러가지 검사로 간단하게 눈 상태를 체크해보세요</h3>
                     </div>
                 </div>
             </div>
@@ -178,18 +178,51 @@
 
 
 <div class="d-flex flex-column">
-    <h2 class="centered mb-4">파일 업로드 후 예측결과 버튼을 클릭해주세요</h2>
-    <h5 class="centered">1. 안구가 정확히 보이도록 사진을 찍어서 업로드 해주세요</h5>
-    <h5 class="centered mb-4">2. 업로드 후 예측결과 버튼을 눌려주세요</h5>
-    <h2 class="warning centered" id="warning">주의 !!!!!</h2>
-    <h5 class="centered">본 온라인 백내장검사는 전문가에 의한 검사가 아니며, 질병의 상태를 진단하거나 예방하는 목적으로 고안되지 않았습니다.</h5>
-    <h5 class="centered">본 온라인 백내장검사는 대략적인 안구의 상태만을 파악할 수 있으며 보다 정확한 검사는 의사에게 검사를 받으시는 것이 좋습니다.</h5>
+<h1 class="warning centered" id="warning">주의 !!!!!</h1>
+    <h5 class="centered">본 온라인 황반변성검사는 전문가에 의한 검사가 아니며, 질병의 상태를 진단하거나 예방하는 목적으로 고안되지 않았습니다.</h5>
+    <h5 class="centered mb-4">본 온라인 황반변성검사는 대략적인 안구의 상태만을 파악할 수 있으며 보다 정확한 검사는 의사에게 검사를 받으시는 것이 좋습니다.</h5>
     <div class="w3layouts">
+
+        <h3 class="centered mb-4">-----------------------------------------------------------------------------------------------------</h3>
+
+    <h3 class="centered mb-4">황반변성검사</h3>
+
+    <div class="centered mb-4">
+        <video class="mb-4" src="{{ url_for('static' , filename='assets/img/testguide/macular.mp4') }}" width='750' height='500' controls></video>
+            <h5 class="centered">황반변성검사 시연 영상</h5>
+    </div>
+
+        <h3 class="centered mb-4">-----------------------------------------------------------------------------------------------------</h3>
+
+        <div class="centered">
+        <h3 class="centered mb-4">황반변성 검사 상세설명</h3>
+
+        <div class="centered mb-4">
+    <img src="{{ url_for('static', filename='assets/img/testguide/macular.png') }}" width='750' height='500' >
+        </div>
+        <h5 class="centered">1. 검사시작 버튼을 누른후 좌측 하단에 나오는 방향에 맞춰 반대쪽 눈을 가려주세요</h5>
+        <h5 class="centered">( 거리는 50 ~ 75cm를 유지해주세요 )</h5>
+
+        <h3 class="centered mb-4">---------------------------------------------------------</h3>
+
+        <div class="centered mb-4">
+    <img src="{{ url_for('static', filename='assets/img/testguide/macular2.png') }}" width='750' height='500' >
+        </div>
+        <h5 class="centered">2. 가운데 점이 번져보이거나 바둑판의 선이 휘어 보이면 V 아니라면 X 위에 3초간 검지손가락을 올려주세요</h5>
+
+        <h3 class="centered mb-4">---------------------------------------------------------</h3>
+
+        <div class="centered mb-4">
+    <img src="{{ url_for('static', filename='assets/img/testguide/macular3.png') }}" width='750' height='500' >
+        </div>
+        <h5 class="centered">3. 양쪽 눈의 검사가 끝난 후 결과를 확인해주세요</h5>
+
+        <h3 class="centered mb-4">---------------------------------------------------------</h3>
+
 
     <div class="my_div my_bg text-center">
         <!-- 카메라 버튼은 웹캠이 출력 -->
-        <button class="btn_start btn-dark mb-4" onclick="location.href='macular_camera'">Camera</button>
-
+        <button class="btn btn_start me-1 btn-dark mb-4" onclick="location.href='macular_camera'">검사 시작</button>
     </div>
 
     <!-- Footer-->

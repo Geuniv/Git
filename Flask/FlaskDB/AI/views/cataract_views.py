@@ -65,7 +65,7 @@ def gen(cap):
 
             image = Image.fromarray(image)
             draw = ImageDraw.Draw(image)
-            draw.text(xy=(100, 35),text= f'손을 깜빡 해주세요~',font=ImageFont.truetype(font, 40), fill=(255, 255, 255))
+            draw.text(xy=(100, 35),text= f'손바닥이 보이게 손을 든 후 정면을 바라보고 주먹을 쥐어주세요',font=ImageFont.truetype(font, 40), fill=(255, 255, 255))
             image = np.array(image)
 
             if testEnd is False:
@@ -103,7 +103,7 @@ def gen(cap):
 
                             image = Image.fromarray(image)
                             draw = ImageDraw.Draw(image)
-                            draw.text(xy=(495, 115), text= f'정면봐주세요~', font=ImageFont.truetype(font,40), fill=(0, 225, 225))
+                            draw.text(xy=(495, 115), text= f'정면을 보고 주먹을 쥐어주세요', font=ImageFont.truetype(font,40), fill=(0, 225, 225))
                             image = np.array(image)
 
                             if dist < dist2:
@@ -172,4 +172,4 @@ def gen(cap):
 def video_feed():
     global cap
     if Response(gen(cap),mimetype='multipart/x-mixed-replace; boundary=frame'):
-        return render_template("test/cataract.html")    # 윈도우창이 출력시 카메라 페이지로 다시 돌아간다
+        return render_template("test/cataract_main.html")    # 윈도우창이 출력시 카메라 페이지로 다시 돌아간다

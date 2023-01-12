@@ -16,18 +16,18 @@ bp = Blueprint('test' , __name__ , url_prefix='/test')
 @bp.route('/cataract_main')
 @login_required # @login_required 데코레이터
 def cataract_main():
-    return render_template('test/Cataract_main.html')
+    return render_template('test/cataract_main.html')
 
 # 백내장 테스트
-@bp.route('/cataract', methods=['GET', 'POST'])
+@bp.route('/cataract_img', methods=['GET', 'POST'])
 @login_required # @login_required 데코레이터
-def Cataract():
+def Cataract_img():
     form = CataractForm()
     print('Start')
     if request.method == "POST":
         print('POST')
         file = request.files['image']
-        if not file: return render_template('test/Cataract.html', label="No Files")
+        if not file: return render_template('test/cataract_img.html', label="No Files")
         print('file uploaded successfully')
 
         class_name, score = cp.image_test(file)
@@ -45,7 +45,7 @@ def Cataract():
         #     db.session.add(test)
         #     db.session.commit()
         #     return redirect(url_for('test.Cataract'))
-        return render_template("test/Cataract.html", class_name=class_name, score=score , alert=alert , form=form)
+        return render_template("test/cataract_img.html", class_name=class_name, score=score , alert=alert , form=form)
     else:
         print('GET')
-        return render_template("test/Cataract.html")
+        return render_template("test/cataract_img.html")

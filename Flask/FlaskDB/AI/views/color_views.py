@@ -94,7 +94,7 @@ def gen(cap):
             if testEnd is False:
                 if another is False:
 
-                    text_def((100, 35), f'그림을 보고 정답을 찾으세요.', ImageFont.truetype(font,40), (255, 255, 255))
+                    text_def((100, 35), f'그림을 보고 맞는 숫자들을 손가락으로 3초이상 가르켜주세요.', ImageFont.truetype(font,40), (255, 255, 255))
                     image_def(630, 300, disease)
                     et.overlay(image, *(50, 50), 40, 40, logo)
                     text_def((150, 130), f"① ", ImageFont.truetype(font, 70), (0, 0, 0))

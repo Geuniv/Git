@@ -168,36 +168,61 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-xxl-8">
                     <div class="text-center my-5">
-                        <h1 class="fw-bolder my-3 mb-3" id="title">AI 기반 백내장 테스트</h1>
-                        <h3 class="fw-bolder my-3 mb-3" id="title2">스마트폰 촬영을 통해 백내장 유무를 검사하세요</h3>
+                        <h1 class="fw-bolder my-3 mb-3" id="title">AI 기반 눈건강 관리</h1>
+                        <h3 class="fw-bolder my-3 mb-3" id="title2">여러가지 검사로 간단하게 눈 상태를 체크해보세요</h3>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-<body>
+
 
 <div class="d-flex flex-column">
-    <h2 class="centered mb-4">결과 방식을 선택해주세요</h2>
-    <h5 class="centered">1. 이미지 업로드 형식</h5>
-    <h5 class="centered mb-4">2. 웹캠 인식 형식</h5>
-<!--    <h2 class="warning centered" id="warning">주의 !!!!!</h2>-->
-<!--    <h5 class="centered">본 온라인 백내장검사는 전문가에 의한 검사가 아니며, 질병의 상태를 진단하거나 예방하는 목적으로 고안되지 않았습니다.</h5>-->
-<!--    <h5 class="centered">본 온라인 백내장검사는 대략적인 안구의 상태만을 파악할 수 있으며 보다 정확한 검사는 의사에게 검사를 받으시는 것이 좋습니다.</h5>-->
+
+    <h1 class="warning centered" id="warning">주의 !!!!!</h1>
+    <h5 class="centered">본 온라인 백내장검사는 전문가에 의한 검사가 아니며, 질병의 상태를 진단하거나 예방하는 목적으로 고안되지 않았습니다.</h5>
+    <h5 class="centered mb-4">본 온라인 백내장검사는 대략적인 안구의 상태만을 파악할 수 있으며 보다 정확한 검사는 의사에게 검사를 받으시는 것이 좋습니다.</h5>
     <div class="w3layouts">
 
+        <h3 class="centered mb-4">-----------------------------------------------------------------------------------------------------</h3>
+
+        <div class="container mb-4"></div>
+
+    <h3 class="centered mb-4">파일 업로드 후 예측결과 버튼을 클릭해주세요</h3>
+    <h5 class="centered">1. 안구가 정확히 보이도록 사진을 찍어서 업로드 해주세요</h5>
+    <h5 class="centered mb-4">2. 업로드 후 예측결과 버튼을 눌려주세요</h5>
+
+
         <div class="centered mb-4">
-            <img src="{{ url_for('static', filename='assets/img/KakaoTalk_20221221_104740512.jpg') }}" width='750' height='750' >
+            <img src="{{ url_for('static', filename='assets/img/testguide/0111052322824118.jpg') }}" width='1800' height='500' >
         </div>
 
-    <div class="container text-center">
-        <button type="button" class="btn btn-dark me-1 mb-4" onclick="location.href='cataract'">이미지 업로드</button>
-        <button type="button" class="btn btn-dark me-1 mb-4" onclick="location.href='test/cataract'">웹캠 인식</button>
-    </div>
+        <h3 class="centered mb-4">-----------------------------------------------------------------------------------------------------</h3>
 
+            <form id="upload" action="{{ url_for('test.Cataract_img') }}" method="POST" enctype="multipart/form-data">
+              <div>
+                <label for="filename" class="file-label">이미지 선택</label>
+                <input id="filename" type="file" value="Upload" name="image" class="file-upload" />
+              </div>
+              <div class="preview"><ol><li><p>파일명</p></li></ol></div>
+              <div>
+                <input id="submitButton" type="submit" value="예측 결과" class="btn btn-dark centered">
+                  {% if class_name %}
+                    <span class="result_lable">
+                        {{ class_name }}
+                    </span>
+                    <p class="alert">
+                        {{ alert }}
+                    </p>
+                 {% endif %}
+              </div>
+            </form>
 
-</body>
-<!-- Footer-->
+        <!-- Footer 띄우기용 -->
+        <div class="container mb-4">
+        </div>
+
+    <!-- Footer-->
         <footer class="bg-dark py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
@@ -224,5 +249,84 @@
 <!-- Core theme JS-->
 <script src="/static/js/scripts.js"></script>
 
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}")
+        </script>
+    {% endif %}
+{% endwith %}
+
+<script>
+var input = document.querySelector('input');
+var preview = document.querySelector('.preview');
+
+input.style.opacity = 0;
+
+input.addEventListener('change', updateImageDisplay);
+
+function updateImageDisplay() {
+  while(preview.firstChild) {
+    preview.removeChild(preview.firstChild);
+  }
+
+  const curFiles = input.files;
+  if(curFiles.length === 0) {
+    const para = document.createElement('p');
+    para.textContent = 'No files currently selected for upload';
+    preview.appendChild(para);
+  } else {
+    const list = document.createElement('ol');
+    preview.appendChild(list);
+
+    for(const file of curFiles) {
+      const listItem = document.createElement('li');
+      const para = document.createElement('p');
+      if(validFileType(file)) {
+        para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+        const image = document.createElement('img');
+        image.src = URL.createObjectURL(file);
+
+        listItem.appendChild(image);
+        listItem.appendChild(para);
+      } else {
+        para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+        listItem.appendChild(para);
+      }
+
+      list.appendChild(listItem);
+    }
+  }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+const fileTypes = [
+  "image/apng",
+  "image/bmp",
+  "image/gif",
+  "image/jpeg",
+  "image/pjpeg",
+  "image/png",
+  "image/svg+xml",
+  "image/tiff",
+  "image/webp",
+  "image/x-icon"
+];
+
+function validFileType(file) {
+  return fileTypes.includes(file.type);
+}
+
+function returnFileSize(number) {
+  if(number < 1024) {
+    return number + 'bytes';
+  } else if(number >= 1024 && number < 1048576) {
+    return (number/1024).toFixed(1) + 'KB';
+  } else if(number >= 1048576) {
+    return (number/1048576).toFixed(1) + 'MB';
+  }
+}
+
+</script>
 
 {% endblock %}

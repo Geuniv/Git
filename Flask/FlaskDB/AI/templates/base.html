@@ -8,7 +8,7 @@
         <meta name="description" content="" />
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Hugo 0.104.2">
-        <title>2조</title>
+        <title>Eye조아</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -54,8 +54,8 @@
                        </ul>
                    </li>
                    <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('game.game') }}">게임</a></li>
-                   <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('main.faq') }}">의료/편의시설</a></li>
-                   <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('main.faq') }}">고객센터</a></li>
+                   <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('main.navi') }}">의료/편의시설</a></li>
+<!--                   <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('main.faq') }}">고객센터</a></li>-->
                    <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('question._list') }}">질문 게시판</a></li>
 <!--                   <li class="nav-item dropdown">-->
 <!--                       <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">질문 게시판</a>-->
@@ -93,7 +93,7 @@
                     </li>
                 </ul>
                 {% else %}
-              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <ul class="navbar-nav  mb-2 mb-lg-0">
                   <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.signin') }}">로그인</a></li>
                  <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.signup') }}">회원가입</a></li>
               </ul>
@@ -102,6 +102,7 @@
        </div>
    </nav>
 </body>
+
 
 
 
@@ -163,15 +164,13 @@ Array.from(recommend_elements).forEach(function(element) {
 <!-- Core theme JS-->
 <script src="/static/js/scripts.js"></script>
 
-<!--챗봇 시작-->
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <meta name="viewport" content="width-device-width, initial-scale=1">
-        <df-messenger>
-          intent="WELCOME"
-          chat-title="Test_Main"
-          agent-id="91bf2708-eeda-4f14-a0e0-858342f60a10"
-          language-code="ko"
-        </df-messenger>
+<meta name="viewport" content="width-device-width, initial-scale=1">
+<df-messenger
+  chat-title="Test_Main"
+  agent-id="91bf2708-eeda-4f14-a0e0-858342f60a10"
+  language-code="ko"
+></df-messenger>
 <style>
 
   df-messenger {
@@ -183,7 +182,6 @@ Array.from(recommend_elements).forEach(function(element) {
    --df-messenger-user-message: #479b3d;
     }
 </style>
-<!--챗봇 끝-->
 
 
 </html>
